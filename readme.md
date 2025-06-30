@@ -50,13 +50,13 @@ This method is suitable for projects where you include JavaScript directly in yo
 
 This method is recommended for structured projects using module bundlers, providing better dependency management and code organization.
 
-1.  **Ensure `reactive.js` is an ES Module:**
-    The `reactive.js` file should have `export` statements for the functions you want to use (e.g., `export function createStore(...)`). The version provided in our previous interaction is already set up this way.
+1.  **Ensure `reactive-lib.js` is an ES Module:**
+    The `reactive-lib.js` file should have `export` statements for the functions you want to use (e.g., `export function createStore(...)`). The version provided in our previous interaction is already set up this way.
 
 2.  **Import the functions in your main JavaScript file (e.g., `main.js`):**
     ```javascript
     // main.js
-    import { createStore, updateState, renderAll } from './reactive.js'; // Adjust path as needed
+    import { createStore, updateState, renderAll } from './reactive-lib.js'; // Adjust path as needed
 
     // Initialize your store
     const store = createStore({
