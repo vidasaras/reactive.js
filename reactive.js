@@ -1,4 +1,5 @@
 // reactive.js - Simple template-based reactive library that handles direct and external changes
+// https://github.com/vidasaras/reactive.js
 
 // Regular expressions for template matching
 const singleValueRegex = /\${([^}]*)}/g;

@@ -15,36 +15,83 @@
 
 ## Getting Started
 
-### Installation
+Reactive.js offers two primary ways to include and use the library in your project:
 
-Simply include the reactive.js file in your HTML:
+### 1. Direct HTML Script Inclusion (for simple projects or quick prototyping)
 
-```html
-<script src="path/to/reactive.js"></script>
-```
+This method is suitable for projects where you include JavaScript directly in your HTML or concatenate scripts without a module bundler.
 
-### Basic Setup
+1.  **Include the script:**
+    ```html
+    <script src="path/to/reactive.js"></script>
+    ```
+    * **Note:** When using this method, the `createStore`, `updateState`, and `renderAll` functions are exposed globally on the `window` object. You would call them like `window.createStore()`, `window.updateState()`, and `window.renderAll()`. For convenience, `window.updateState` and `window.renderAll` are automatically aliased to just `updateState` and `renderAll` in the global scope.
 
-1. Create HTML elements with templates:
+2.  **Create HTML elements with templates:**
+    ```html
+    <div data-template>
+      <h1>${title}</h1>
+      <p>${message}</p>
+    </div>
+    ```
 
-```html
-<div data-template>
-  <h1>${title}</h1>
-  <p>${message}</p>
-</div>
-```
+3.  **Initialize your store with initial data:**
+    ```javascript
+    const store = createStore({ // Uses the globally available createStore
+      title: "Hello Reactive.js",
+      message: "This is a reactive application"
+    });
 
-2. Initialize your store with initial data:
+    // To update state:
+    updateState({ message: "State updated!" }); // Uses the globally available updateState
+    ```
 
-```javascript
-const store = createStore({
-  title: "Hello Reactive.js",
-  message: "This is a reactive application"
-});
-```
+### 2. ES Module Import (for modern projects with bundlers like Vite, Webpack, Rollup)
+
+This method is recommended for structured projects using module bundlers, providing better dependency management and code organization.
+
+1.  **Ensure `reactive.js` is an ES Module:**
+    The `reactive.js` file should have `export` statements for the functions you want to use (e.g., `export function createStore(...)`). The version provided in our previous interaction is already set up this way.
+
+2.  **Import the functions in your main JavaScript file (e.g., `main.js`):**
+    ```javascript
+    // main.js
+    import { createStore, updateState, renderAll } from './reactive.js'; // Adjust path as needed
+
+    // Initialize your store
+    const store = createStore({
+      title: "Hello Reactive.js (Module)",
+      message: "This is a reactive application using ES Modules"
+    });
+
+    // To update state:
+    updateState({ message: "State updated via module import!" });
+
+    // If you need to manually trigger a re-render:
+    // renderAll();
+    ```
+
+3.  **Link your main JavaScript file as a module in your `index.html`:**
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <!-- ... -->
+    </head>
+    <body>
+        <!-- Your HTML content with data-template elements -->
+        <div data-template>
+            <h1>${title}</h1>
+            <p>${message}</p>
+        </div>
+        <!-- ... -->
+
+        <script type="module" src="/main.js"></script>
+    </body>
+    </html>
+    ```
 
 That's it! Your UI will automatically update whenever your data changes.
-
 ## Core Concepts
 
 ### State Management
